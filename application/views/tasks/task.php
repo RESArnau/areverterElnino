@@ -152,8 +152,7 @@
                 dataType: 'json',
                 url: '<?php echo base_url()?>index.php/tasks/search',
                 type: 'post',
-                success: function (response) {
-                    
+                success: function (response) {                    
                   	createTable(response);
                    
                 }
@@ -169,8 +168,7 @@
                 dataType: 'json',
                 url: '<?php echo base_url()?>index.php/tasks/search',
                 type: 'post',
-                success: function (response) {
-                    
+                success: function (response) {                    
                   	createTable(response);
                    
                 }
