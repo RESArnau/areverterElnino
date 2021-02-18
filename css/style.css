@@ -11,7 +11,10 @@ body {
 	padding-top: 10px;
 	margin-bottom: 10px;
 }
-
+.filter{
+	width: 100px;
+	margin-bottom: 10px;
+}
 
 .modal-content{
   border:black 6px solid;

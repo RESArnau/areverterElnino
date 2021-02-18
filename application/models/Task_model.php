@@ -39,11 +39,25 @@ class Task_model extends CI_Model {
 		
 	}
 
-	public function get_tasks_by_name($name){
+	public function get_tasks_by_name_and_description($name,$priority=null){
+		
+		if($priority){
+			$this->db->where('priority', $priority);
+		}
 
 		$this->db->like('name', $name);
-		$query = $this->db->get('task');
 
+		if($priority){
+			$this->db->or_where('priority', $priority);
+			$this->db->like('description', $name);
+		}else{
+			$this->db->or_like('description', $name);
+		}
+		
+		
+		$query = $this->db->get('task');
+		
+		
 		return $query->result_array();
 	}
 

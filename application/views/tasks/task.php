@@ -24,6 +24,15 @@
 </table>
 <div>	
 	<input class="form-control search" id="searchTask" type="text" placeholder="Search task">
+
+	<select class="form-control filter" name="priorityFilter" id="priorityFilter">
+							<option value="0">All</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+	</select>
 	<!-- Button trigger modal -->
 	<button style="right;" type="button" class="buttonAdd btn btn-primary" data-toggle="modal" data-target="#addTask">
 		Add Task
@@ -133,21 +142,37 @@
 	}
 
 	var input = document.querySelector('#searchTask');
+	var selectPriority = document.querySelector('#priorityFilter');
+
 
 	input.addEventListener('change', function()
 	{
 		$.ajax({
-                data: {name: input.value},
+                data: {name: input.value,priority: selectPriority.value},
                 dataType: 'json',
                 url: '<?php echo base_url()?>index.php/tasks/search',
                 type: 'post',
                 success: function (response) {
-                    if (response) {
+                    
                   	createTable(response);
-                   	
-                    } else {
-                     
-                    }
+                   
+                }
+            });
+		
+	});
+
+	
+	selectPriority.addEventListener('change', function()
+	{
+		$.ajax({
+                data: {name: input.value,priority: selectPriority.value},
+                dataType: 'json',
+                url: '<?php echo base_url()?>index.php/tasks/search',
+                type: 'post',
+                success: function (response) {
+                    
+                  	createTable(response);
+                   
                 }
             });
 		
