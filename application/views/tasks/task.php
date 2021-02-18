@@ -1,22 +1,20 @@
-<table id="tasksTable" class="table table-striped table-bordered" style="width: 800px;">
+<table  class="table table-striped table-bordered" style="width: 800px;">
 
 	<thead class="thead-light">
 		<tr>
 			<th scope="col">Name</th>
 			<th scope="col" style="width: 150px;">Date</th>
 			<th scope="col">Priority</th>
-			<th scope="col">Color</th>
 			<th scope="col">Description</th>
 			<th scope="col">Action</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="tasksTable">
 		<?php foreach($tasks as $task): ?>
 			<tr id="<?= $task['id']; ?>">
 				<td><?= $task['name']; ?></td>
 				<td><?= $task['date']; ?></td>
 				<td><?= $task['priority']; ?></td>
-				<td><?= $task['color']; ?></td>
 				<td><?= $task['description']; ?></td>
 				<td><button id="<?= $task['id']; ?>" onclick="deleteTask(this.id)" class="btn btn-danger" data-toggle="modal">Delete</button></td>
 			</tr>
@@ -125,8 +123,13 @@
 	}
 
 	function createTable(data){
+		const tbody=$("#tasksTable");
+		tbody.empty();
+
+		for (var i = data.length - 1; i >= 0; i--) {
+			tbody.append('<tr id="'+data[i]['id']+'"><td>'+data[i]['name']+'</td><td>'+data[i]['date']+'</td><td>'+data[i]['priority']+'</td><td>'+data[i]['description']+'</td><td><button id="'+data[i]['id']+'" onclick="deleteTask(this.id)" class="btn btn-danger" data-toggle="modal">Delete</button></td></tr>');
+		}
 		
-		//create table dynamic
 	}
 
 	var input = document.querySelector('#searchTask');
@@ -135,12 +138,13 @@
 	{
 		$.ajax({
                 data: {name: input.value},
+                dataType: 'json',
                 url: '<?php echo base_url()?>index.php/tasks/search',
                 type: 'post',
                 success: function (response) {
                     if (response) {
-                   	createTable(response);
-
+                  	createTable(response);
+                   	
                     } else {
                      
                     }
