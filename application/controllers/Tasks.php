@@ -31,5 +31,13 @@
 			}
 			
 		}
-		
+		public function search(){			
+			
+			$result = $this->task_model->get_tasks_by_name($_POST['name']);
+			
+			if($result){
+				echo json_encode($result);
+			}
+			
+		}
 	}

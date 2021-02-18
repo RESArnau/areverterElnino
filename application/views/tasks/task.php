@@ -1,4 +1,5 @@
-<table class="table table-striped table-bordered" style="width: 800px;">
+<table id="tasksTable" class="table table-striped table-bordered" style="width: 800px;">
+
 	<thead class="thead-light">
 		<tr>
 			<th scope="col">Name</th>
@@ -6,6 +7,7 @@
 			<th scope="col">Priority</th>
 			<th scope="col">Color</th>
 			<th scope="col">Description</th>
+			<th scope="col">Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,13 +22,17 @@
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
+
 </table>
+<div>	
+	<input class="form-control search" id="searchTask" type="text" placeholder="Search task">
+	<!-- Button trigger modal -->
+	<button style="right;" type="button" class="buttonAdd btn btn-primary" data-toggle="modal" data-target="#addTask">
+		Add Task
+	</button>
+	
+</div>
 
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTask">
-  Add Task
-</button>
 
 <!-- Modal Add-->
 <div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelledby="Add Task" aria-hidden="true">
@@ -106,14 +112,41 @@
                 type: 'post',
                 success: function (response) {
                     if (response) {
+
                     document.getElementById(response).remove();
-                     $("#deleteTask").modal('hide');
+
+                    $("#deleteTask").modal('hide');
 
                     } else {
-                       console.log("ese");
+                      
                     }
                 }
             });
 	}
+
+	function createTable(data){
+		
+		//create table dynamic
+	}
+
+	var input = document.querySelector('#searchTask');
+
+	input.addEventListener('change', function()
+	{
+		$.ajax({
+                data: {name: input.value},
+                url: '<?php echo base_url()?>index.php/tasks/search',
+                type: 'post',
+                success: function (response) {
+                    if (response) {
+                   	createTable(response);
+
+                    } else {
+                     
+                    }
+                }
+            });
+		
+	});
 
 </script>

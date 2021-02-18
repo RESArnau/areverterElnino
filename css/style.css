@@ -1,12 +1,18 @@
 
 body {
-  font-size:30px;
-  color:#000;
-  border-bottom: 1px solid #ccc;
+  
   padding-top:40px;
   padding-left:100px;
   padding-bottom:15px;
 }
+
+.search{
+	width: 400px;
+	padding-top: 10px;
+	margin-bottom: 10px;
+}
+
+
 .modal-content{
   border:black 6px solid;
   padding-top: 10px;
